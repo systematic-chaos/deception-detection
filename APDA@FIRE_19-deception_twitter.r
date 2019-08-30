@@ -1,3 +1,8 @@
+# Deception Detection in Arabic Tweets and News
+# APDA 2019
+# F. Javier Fernández-Bravo Peñuela
+# Universitat Politècnica de València
+
 # Including needed libraries
 library(qdap)
 library(tm)
@@ -9,10 +14,9 @@ start.time <- Sys.time()
 
 # Preparing parameters
 n <- 1000
-#lang <- 'ar'
-lang <- ''
-path_training <- "/home/thanatos/Escritorio/Text Mining en Social Media/APDA/FIRE/deception/training/APDA@FIRE.Qatar-Twitter-corpus.training.20190524.csv"    # Your training path
-path_test <- "/home/thanatos/Escritorio/Text Mining en Social Media/APDA/FIRE/deception/test/APDA@FIRE.Qatar-Twitter-corpus.test.20190608.csv"
+lang <- 'ar'
+path_training <- "deception/training/APDA@FIRE.Qatar-Twitter-corpus.training.20190524.csv"
+path_test <- "deception/test/APDA@FIRE.Qatar-Twitter-corpus.test.20190608.csv"
 k <- 4
 r <- 1
 
@@ -60,7 +64,7 @@ GenerateVocabulary <- function(path, n=1000, lowcase=TRUE, punctuations=TRUE, nu
     corpus.preprocessed <- removeWords(corpus.preprocessed, swlist)
   }
   
-  #corpus.preprocessed <- arabicStemR::removeStopWords(corpus.preprocessed)$text
+  corpus.preprocessed <- arabicStemR::removeStopWords(corpus.preprocessed)$text
   
   if (punctuations) {
     if (verbose) print("Removing punctuations...")
@@ -73,7 +77,7 @@ GenerateVocabulary <- function(path, n=1000, lowcase=TRUE, punctuations=TRUE, nu
   if (length(swlist) > 0 || swlist != '') {
     corpus.preprocessed <- removeWords(corpus.preprocessed, swlist)
   }
-  #corpus.preprocessed <- arabicStemR::removeStopWords(corpus.preprocessed)$text
+  corpus.preprocessed <- arabicStemR::removeStopWords(corpus.preprocessed)$text
   
   # Generating the vocabulary as the n most frequent terms
   if (verbose) print("Generating frequency terms")
@@ -118,11 +122,11 @@ GenerateBoW <- function(path, vocabulary, n=100000, lowcase=TRUE, punctuations=T
     }
     
     if (swlang != '') {
-      #txtdata <- removeWords(stopwords(swlang, source="stopwords-iso"))
+      txtdata <- removeWords(stopwords(swlang, source="stopwords-iso"))
     }
     
     if (length(swlist) > 0 && swlist != '') {
-      #txtdata <- removeWords(swlist)
+      txtdata <- removeWords(swlist)
     }
     
     # Building the vector space model. For each word in the vocabulary, it obtains the frequency of occurrence in the current author.

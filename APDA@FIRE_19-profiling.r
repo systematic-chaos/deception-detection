@@ -1,3 +1,8 @@
+# Author Profiling in Arabic Tweets and News
+# APDA 2019
+# F. Javier Fernández-Bravo Peñuela
+# Universitat Politècnica de València
+
 # Including needed libraries
 library(qdap)
 library(XML)
@@ -11,8 +16,8 @@ start.time <- Sys.time()
 # Preparing parameters
 n <- 1000
 lang <- 'ar'
-path_training <- "/home/thanatos/Escritorio/Text Mining en Social Media/APDA/FIRE/profiling/training/corpus"    # Your training path
-path_test <- "/home/thanatos/Escritorio/Text Mining en Social Media/APDA/FIRE/profiling/test/corpus"
+path_training <- "profiling/training/corpus"
+path_test <- "profiling/test/corpus"
 k <- 4
 r <- 1
 
@@ -348,22 +353,9 @@ pred_SVM_variety[1] <- pred_SVM_variety.class
 
 
 
-# JOINT EVALUATION
-##################
-#joint <- data.frame(pred_SVM_gender, truth_gender, pred_SVM_variety, truth_variety, pred_SVM_age, truth_age)
-#joint <- cbind(joint, ifelse(joint[,1] == joint[,2], 1, 0), ifelse(joint[,3] == joint[,4], 1, 0), ifelse(joint[,5] == joint[,6], 1, 0))
-#joint <- cbind(joint, joint[,5] * joint[,6] * joint[,7])
-#colnames(joint) <- c("pgender", "tgender", "pvariety", "tvariety", "page", "tage", "gender", "variety", "age", "joint")
-
-#acc.gender <- sum(joint$gender) / nrow(joint)
-#acc.variety <- sum(joint$variety) / nrow(joint)
-#acc.age <- sum(joint$age) / nrow(joint)
-#acc.joint <- sum(joint$joint) / nrow(joint)
-
 end.time <- Sys.time()
 time.taken <- end.time - start.time
 
-#print(paste(acc.gender, acc.variety, acc.age, acc.joint, time.taken))
 print(paste("Time taken: ", time.taken))
 
 # EXPORT PREDICTIONS TO FILE
